@@ -3,6 +3,7 @@ import useAuth from '../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const { createUser, updateUser } = useAuth();
@@ -30,6 +31,7 @@ const Register = () => {
                         updateUser(userProfile)
                             .then(() => {
                                 console.log('user profile updated done.')
+                                toast.success('Employee User Created');
                                 navigate(location.state || '/');
                             })
                             .catch(error => console.log(error))
