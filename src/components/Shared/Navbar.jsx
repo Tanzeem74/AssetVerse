@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { ChevronDown } from "lucide-react";
-import { Link, NavLink } from 'react-router';
+import { Link } from 'react-router';
 import logoImg from '../../assets/logo.png'
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
-    const user = false;
+    const {user,logOut}=useAuth();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch(error => {
+                console.log(error)
+            })
+    }
     return (
         <nav className="bg-white shadow-md">
             <div className="navbar max-w-7xl mx-auto px-4 py-3">
@@ -67,6 +75,7 @@ const Navbar = () => {
                                         </Link>
 
                                         <button
+                                        onClick={handleLogOut}
                                             className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                                         >
                                             Logout
@@ -83,7 +92,7 @@ const Navbar = () => {
                                     Login
                                 </Link>
                                 <Link
-                                    to="/auth/login"
+                                    to="/auth/signup-user"
                                     className=" hover:bg-blue-400 text-black px-4 py-2 rounded-lg font-medium shadow-md"
                                 >
                                     Sign Up
