@@ -3,10 +3,14 @@ import { ChevronDown } from "lucide-react";
 import { Link } from 'react-router';
 import logoImg from '../../assets/logo.png'
 import useAuth from '../../hooks/useAuth';
+import useRole from '../../hooks/useRole';
 
 const Navbar = () => {
-    const {user,logOut}=useAuth();
+    const { user, logOut } = useAuth();
+    const { role } = useRole();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    
+    console.log(role);
     const handleLogOut = () => {
         logOut()
             .then()
@@ -41,7 +45,55 @@ const Navbar = () => {
                                             }`}
                                     />
                                 </button>
-                                {isDropdownOpen && (
+                                {role === 'hr' && isDropdownOpen && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+                                        <Link
+                                            to="/purchases"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Profile
+                                        </Link>
+
+                                        <Link
+                                            to="/my-model"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700eam dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Asset List
+                                        </Link>
+
+                                        <Link
+                                            to="/purchases"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Add Asset
+                                        </Link>
+                                        <Link
+                                            to="/purchases"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            All Requests
+                                        </Link>
+                                        <Link
+                                            to="/purchases"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Employee List
+                                        </Link>
+
+                                        <button
+                                            onClick={handleLogOut}
+                                            className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                )}
+                                {role === 'employee' && isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
                                         <Link
                                             to="/purchases"
@@ -75,13 +127,14 @@ const Navbar = () => {
                                         </Link>
 
                                         <button
-                                        onClick={handleLogOut}
+                                            onClick={handleLogOut}
                                             className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                                         >
                                             Logout
                                         </button>
                                     </div>
                                 )}
+                                
                             </div>
                         ) : (
                             <div className='flex gap-2'>

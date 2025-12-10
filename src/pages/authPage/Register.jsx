@@ -4,12 +4,14 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Register = () => {
     const { createUser, updateUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure=useAxiosSecure();
     const handleRegister = (data) => {
         console.log(data);
         const profileImg = data.photo[0];
@@ -27,6 +29,21 @@ const Register = () => {
                             displayName: data.name,
                             photoURL: res.data.data.url
                         }
+                        const employeeUser = {
+                            name: data.name,
+                            email: data.email,
+                            photoURL:res.data.data.url,
+                            dateOfBirth: data.dateOfBirth,
+                            role: "employee",
+                            createdAt: new Date()
+                        };
+
+                        axiosSecure.post('/users', employeeUser)
+                        .then(res =>{
+                            if(res.data.insertedId){
+                                console.log('user created in the database');
+                            }
+                        })
 
                         updateUser(userProfile)
                             .then(() => {
@@ -34,7 +51,7 @@ const Register = () => {
                                 toast.success('Employee User Created');
                                 navigate(location.state || '/');
                             })
-                            .catch(error => console.log(error))
+                            .catch(error => {console.log(error)})
                     })
             })
             .catch(error => {
@@ -43,7 +60,7 @@ const Register = () => {
     }
     return (
         <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl">
-            <h3 className='text-3xl text-center my-3 font-semibold'>Register an account</h3>
+            <h3 className='text-3xl text-center my-3 font-semibold'>Register an employee account</h3>
             <form onSubmit={handleSubmit(handleRegister)} className="card-body">
                 <fieldset className="fieldset">
 
@@ -96,6 +113,8 @@ const Register = () => {
                     <button className="btn btn-primary mt-4">Register</button>
                 </fieldset>
                 <p className='text-center font-semibold'>Already have an account ? <Link state={location.state} className='text-blue-500 underline' to='/auth/login'>Login</Link></p>
+
+                <p className='text-center font-semibold mt-2'>Are you HR ? <Link state={location.state} className='text-blue-500 underline' to='/auth/signup-hr'>Register-HR</Link></p>
             </form>
         </div>
     );
