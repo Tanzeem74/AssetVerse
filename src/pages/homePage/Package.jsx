@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FaCheck } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Loading from "../ExtraPage/Loading";
 
 const Package = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,11 +17,7 @@ const Package = () => {
   });
 
   if (isLoading) {
-    return (
-      <div className="text-center py-16">
-        <span className="loading loading-spinner text-primary"></span>
-      </div>
-    );
+    return <Loading></Loading>
   }
   return (
     <section className="py-16 bg-base-200">

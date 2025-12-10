@@ -5,39 +5,53 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/authPage/Login";
 import Register from "../pages/authPage/Register";
 import RegisterHR from "../pages/authPage/RegisterHR";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import ErrorPage from "../pages/ExtraPage/ErrorPage";
+import PrivateRoute from "../Provider/PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
-    children:[
-        {
-            path:'/',
-            Component:Home
-        }
+    children: [
+      {
+        path: '/',
+        Component: Home
+      }
     ]
   },
   {
-    path:'/auth',
-    Component:AuthLayout,
-    children:[
-        {
-            path:'login',
-            Component:Login
-        },
-        {
-            path:'signup-user',
-            Component:Register
-        },
-        {
-            path:'signup-hr',
-            Component:RegisterHR
-        }
+    path: '/auth',
+    Component: AuthLayout,
+    children: [
+      {
+        path: 'login',
+        Component: Login
+      },
+      {
+        path: 'signup-user',
+        Component: Register
+      },
+      {
+        path: 'signup-hr',
+        Component: RegisterHR
+      }
     ]
   },
   {
-    path:'/*',
-    Component:ErrorPage
+    path: '/dashboard',
+    element: <PrivateRoute>
+      <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
+    children:[
+      {
+        
+      }
+    ]
+  },
+  {
+    path: '/*',
+    Component: ErrorPage
   }
 ]);
