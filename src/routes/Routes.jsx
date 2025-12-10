@@ -5,6 +5,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/authPage/Login";
 import Register from "../pages/authPage/Register";
 import RegisterHR from "../pages/authPage/RegisterHR";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,5 +35,9 @@ export const router = createBrowserRouter([
             Component:RegisterHR
         }
     ]
+  },
+  {
+    path:'/*',
+    Component:ErrorPage
   }
 ]);
