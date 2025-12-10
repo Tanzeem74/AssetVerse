@@ -11,7 +11,7 @@ import Contact from './Contact';
 
 const Home = () => {
     return (
-        <div>
+        <div className='my-8'>
             <Hero></Hero>
             <AboutSection></AboutSection>
             <Package></Package>

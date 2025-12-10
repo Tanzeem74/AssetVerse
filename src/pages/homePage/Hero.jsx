@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion } from "framer-motion"; 
+// import { motion } from "framer-motion"; 
 import { Link } from 'react-router';
 
 const Hero = () => {
     return (
         <div>
             <section className="min-h-[80vh] bg-base-200 flex items-center justify-center">
-                <motion.div
+                <div
                     className="text-center max-w-3xl px-4"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -18,7 +18,7 @@ const Hero = () => {
                         Smart Asset & Employee Management Platform for Modern Organizations.
                     </p>
 
-                    <motion.div
+                    <div
                         className="flex justify-center gap-4 mt-6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -26,8 +26,8 @@ const Hero = () => {
                     >
                         <Link to="/auth/login" className="btn btn-primary">Login</Link>
                         <Link to="/auth/signup-user" className="btn btn-outline btn-primary">Register</Link>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </section>
         </div>
     );
