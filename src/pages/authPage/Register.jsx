@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,9 @@ import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Register = () => {
+    useEffect(() => {
+        document.title = "Register - page";
+    }, []);
     const { createUser, updateUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();

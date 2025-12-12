@@ -28,8 +28,7 @@ const Package = () => {
           {packages.map((pkg, idx) => (
             <div
               key={idx}
-              className="p-6 bg-white rounded-lg shadow border"
-              whileHover={{ y: -6 }}
+              className="p-6 bg-white rounded-lg shadow border" 
             >
               <div className="text-center mb-4">
                 <h3 className="text-2xl font-semibold">{pkg.name}</h3>

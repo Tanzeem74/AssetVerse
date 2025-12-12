@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 const Login = () => {
+    useEffect(() => {
+        document.title = "Login - page";
+    }, []);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { logIn } = useAuth();
     const location = useLocation();

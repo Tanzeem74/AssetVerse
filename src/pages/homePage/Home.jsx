@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Hero from './Hero';
 import AboutSection from './AboutSection';
 import Package from './Package';
@@ -10,6 +10,9 @@ import Contact from './Contact';
 
 
 const Home = () => {
+    useEffect(() => {
+        document.title = "Home - page";
+    }, []);
     return (
         <div className='my-8'>
             <Hero></Hero>
