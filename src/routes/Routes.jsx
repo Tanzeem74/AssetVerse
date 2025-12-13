@@ -8,6 +8,7 @@ import RegisterHR from "../pages/authPage/RegisterHR";
 import ErrorPage from "../pages/ExtraPage/ErrorPage";
 import PrivateRoute from "../Provider/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
+import Profile from "../pages/Dashboard/Profile";
 
 
 export const router = createBrowserRouter([
@@ -46,7 +47,8 @@ export const router = createBrowserRouter([
     </PrivateRoute>,
     children:[
       {
-        
+        path:'profile',
+        Component:Profile
       }
     ]
   },

@@ -48,11 +48,19 @@ const Navbar = () => {
                                 {role === 'hr' && isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/profile"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             Profile
+                                        </Link>
+
+                                        <Link
+                                            to="/dashboard"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Dashboard
                                         </Link>
 
                                         <Link
@@ -96,11 +104,19 @@ const Navbar = () => {
                                 {role === 'employee' && isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/profile"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             Profile
+                                        </Link>
+
+                                        <Link
+                                            to="/dashboard"
+                                            className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Dashboard
                                         </Link>
 
                                         <Link
