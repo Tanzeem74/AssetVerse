@@ -12,6 +12,9 @@ const DashboardHome = () => {
     if (role === 'employee') {
         return <EmployeeDashboard></EmployeeDashboard>
     }
+    // if(role==='hr'){
+    //     return <
+    // }
 };
 
 export default DashboardHome;

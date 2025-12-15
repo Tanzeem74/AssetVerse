@@ -53,19 +53,16 @@ const DashboardLayout = () => {
                     </div>
                     <ul className="menu grow">
 
-                        <li><NavLink to="/" end>🏠 Home</NavLink></li>
+                        <li><NavLink to="/" end>Home</NavLink></li>
 
                         {/* EMPLOYEE MENU */}
                         {role === "employee" && (
                             <>
                                 <li>
-                                    <NavLink to="/employee">📊 Dashboard</NavLink>
+                                    <NavLink to="/dashboard/my-assets">📦 My Assets</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/employee/my-assets">📦 My Assets</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/employee/request-asset">📝 Request Asset</NavLink>
+                                    <NavLink to="/dashboard/request-asset">📝 Request Asset</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/employee/requests">📑 My Requests</NavLink>
@@ -77,19 +74,19 @@ const DashboardLayout = () => {
                         {role === "hr" && (
                             <>
                                 <li>
-                                    <NavLink to="/hr">📊 HR Dashboard</NavLink>
+                                    <NavLink to="/dashboard/add-assets">Add Asset</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/manage-employees">👥 Manage Employees</NavLink>
+                                    <NavLink to="/hr/manage-employees">Manage Employees</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/assets">📦 Manage Assets</NavLink>
+                                    <NavLink to="/dashboard/assets-list">Manage Assets</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/requests">📝 Asset Requests</NavLink>
+                                    <NavLink to="/hr/requests">Asset Requests</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/reports">📄 Reports</NavLink>
+                                    <NavLink to="/hr/reports">Reports</NavLink>
                                 </li>
                             </>
                         )}
