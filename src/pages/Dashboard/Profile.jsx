@@ -25,7 +25,6 @@ const Profile = () => {
 
             <hr className="my-6" />
 
-            {/* Common Info Section */}
             <div>
                 <h3 className="text-xl font-semibold mb-3">General Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -45,7 +44,7 @@ const Profile = () => {
 
             <hr className="my-6" />
 
-            {/* Role-based Section */}
+          
             {role === "employee" && (
                 <div>
                     <h3 className="text-xl font-semibold mb-3">Employee Information</h3>
