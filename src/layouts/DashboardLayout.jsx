@@ -59,13 +59,13 @@ const DashboardLayout = () => {
                         {role === "employee" && (
                             <>
                                 <li>
-                                    <NavLink to="/dashboard/my-assets">📦 My Assets</NavLink>
+                                    <NavLink to="/dashboard/my-assets">My Assets</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/request-asset">📝 Request Asset</NavLink>
+                                    <NavLink to="/dashboard/request-asset">Request Asset</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/employee/requests">📑 My Requests</NavLink>
+                                    <NavLink to="/dashboard/my-team">My Team</NavLink>
                                 </li>
                             </>
                         )}
@@ -77,16 +77,19 @@ const DashboardLayout = () => {
                                     <NavLink to="/dashboard/add-assets">Add Asset</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/manage-employees">Manage Employees</NavLink>
+                                    <NavLink to="/dashboard/my-employees">My Employees</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/assets-list">Manage Assets</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/requests">Asset Requests</NavLink>
+                                    <NavLink to="/dashboard/all-requests">Asset Requests</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/hr/reports">Reports</NavLink>
+                                    <NavLink to="/dashboard/add-employee">Add Employee</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/payment-history">Payment History</NavLink>
                                 </li>
                             </>
                         )}

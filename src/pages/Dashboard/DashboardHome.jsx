@@ -2,6 +2,7 @@ import React from 'react';
 import useRole from '../../hooks/useRole';
 import Loading from '../ExtraPage/Loading';
 import EmployeeDashboard from './employeeDashboard/EmployeeDashboard';
+import HRHome from './hrDashboard/HRHome';
 
 
 const DashboardHome = () => {
@@ -12,9 +13,9 @@ const DashboardHome = () => {
     if (role === 'employee') {
         return <EmployeeDashboard></EmployeeDashboard>
     }
-    // if(role==='hr'){
-    //     return <
-    // }
+    if(role==='hr'){
+        return <HRHome></HRHome>
+    }
 };
 
 export default DashboardHome;

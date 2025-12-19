@@ -14,6 +14,13 @@ import RequestAsset from "../pages/Dashboard/employeeDashboard/RequestAsset";
 import MyAssets from "../pages/Dashboard/employeeDashboard/MyAsset";
 import AddAsset from "../pages/Dashboard/hrDashboard/AddAsset";
 import AssetList from "../pages/Dashboard/hrDashboard/AssetList";
+import AllRequest from "../pages/Dashboard/hrDashboard/AllRequest";
+import MyEmployeeList from "../pages/Dashboard/hrDashboard/MyEmployeeList";
+import AddEmployee from "../pages/Dashboard/hrDashboard/AddEmployee";
+import Upgrade from "../pages/Dashboard/hrDashboard/Upgrade";
+import PaymentSuccess from "../pages/Dashboard/hrDashboard/PaymentSuccess";
+import PaymentHistory from "../pages/Dashboard/hrDashboard/PaymentHistory";
+import MyTeam from "../pages/Dashboard/employeeDashboard/MyTeam";
 
 
 export const router = createBrowserRouter([
@@ -64,8 +71,36 @@ export const router = createBrowserRouter([
         element:<AssetList></AssetList>
       },
       {
+        path:'all-requests',
+        element:<AllRequest></AllRequest>
+      },
+      {
+        path:'my-employees',
+        element:<MyEmployeeList></MyEmployeeList>
+      },
+      {
+        path:'add-employee',
+        element:<AddEmployee></AddEmployee>
+      },
+      {
+        path:'upgrade',
+        element:<Upgrade></Upgrade>
+      },
+      {
+        path:'payment-success',
+        element:<PaymentSuccess></PaymentSuccess>
+      },
+      {
+        path:'payment-history',
+        element:<PaymentHistory></PaymentHistory>
+      },
+      {
         path:'profile',
         Component:Profile
+      },
+      {
+        path:'my-team',
+        Component:MyTeam
       },
       {
         path:'my-assets',
