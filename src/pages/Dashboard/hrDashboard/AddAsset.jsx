@@ -12,7 +12,6 @@ const AddAsset = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
-
     const { mutate, isPending: isMutating } = useMutation({
         mutationFn: async (assetData) => {
             const res = await axiosSecure.post('/assets', assetData);
@@ -28,7 +27,6 @@ const AddAsset = () => {
             toast.error(error.response?.data?.message || 'Failed to add asset to inventory.');
         },
     });
-
     const onSubmit = async (data) => {
         const imageFile = data.productImage[0];
         if (!imageFile) {
@@ -79,8 +77,6 @@ const AddAsset = () => {
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
-                {/* Product Name */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
                     <input
@@ -91,8 +87,6 @@ const AddAsset = () => {
                     />
                     {errors.productName && <p className="mt-1 text-sm text-red-600">{errors.productName.message}</p>}
                 </div>
-
-                {/* Product Image Upload */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Product Image (Upload File)</label>
                     <input
@@ -110,7 +104,6 @@ const AddAsset = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Product Type (Dropdown) */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Product Type</label>
                         <select
@@ -126,8 +119,6 @@ const AddAsset = () => {
                         </select>
                         {errors.productType && <p className="mt-1 text-sm text-red-600">{errors.productType.message}</p>}
                     </div>
-
-                    {/* Product Quantity */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Product Quantity</label>
                         <input
@@ -143,13 +134,10 @@ const AddAsset = () => {
                         {errors.productQuantity && <p className="mt-1 text-sm text-red-600">{errors.productQuantity.message}</p>}
                     </div>
                 </div>
-
-                {/* Submit Button */}
                 <button
                     type="submit"
                     disabled={isUploading}
-                    className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 transition duration-150"
-                >
+                    className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 transition duration-150">
                     {isUploading ? 'Processing...' : 'Add Asset to Inventory'}
                 </button>
             </form>

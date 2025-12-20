@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import Loading from '../../ExtraPage/Loading';
 
 const MyEmployeeList = () => {
     const axiosSecure = useAxiosSecure();
@@ -12,7 +13,6 @@ const MyEmployeeList = () => {
             return res.data;
         }
     });
-
     const handleRemove = async (email) => {
         if (window.confirm("Are you sure you want to remove this employee?")) {
             try {
@@ -24,14 +24,12 @@ const MyEmployeeList = () => {
             }
         }
     };
-
-    if (isLoading) return <div className="p-10 text-center">Loading...</div>;
+    if (isLoading) return <Loading></Loading>
 
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-3xl font-bold text-indigo-700">My Team</h2>
-                {/* Assignment Requirement: Show X/Y count  */}
                 <div className="stats shadow bg-indigo-100 p-2">
                     <div className="stat">
                         <div className="stat-title text-indigo-900">Total Employees</div>
