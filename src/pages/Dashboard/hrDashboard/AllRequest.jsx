@@ -2,12 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Loading from '../../ExtraPage/Loading';
 
 const AllRequest = () => {
     const axiosSecure = useAxiosSecure();
     const [search, setSearch] = useState('');
-
-    // Fetch All Requests [cite: 197, 281]
     const { data: requests = [], refetch, isLoading } = useQuery({
         queryKey: ['all-requests', search],
         queryFn: async () => {
@@ -15,8 +14,6 @@ const AllRequest = () => {
             return res.data;
         }
     });
-
-    // Approve Handler [cite: 202, 205]
     const handleApprove = async (id) => {
         try {
             const res = await axiosSecure.patch(`/requests/approve/${id}`);
@@ -28,8 +25,6 @@ const AllRequest = () => {
             toast.error(err.response?.data?.message || "Approval Failed");
         }
     };
-
-    // Reject Handler [cite: 204]
     const handleReject = async (id) => {
         try {
             await axiosSecure.patch(`/requests/reject/${id}`);
@@ -40,13 +35,11 @@ const AllRequest = () => {
         }
     };
 
-    if (isLoading) return <div className="p-10 text-center">Loading Requests...</div>;
+    if (isLoading) return <Loading></Loading>
 
     return (
         <div className="p-6">
             <h2 className="text-3xl font-bold mb-6">All Asset Requests</h2>
-
-            {/* Search Bar [cite: 190] */}
             <div className="mb-6">
                 <input
                     type="text"
@@ -55,8 +48,6 @@ const AllRequest = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-
-            {/* Requests Table  */}
             <div className="overflow-x-auto bg-white shadow-md rounded-lg">
                 <table className="table w-full">
                     <thead className="bg-gray-100">
