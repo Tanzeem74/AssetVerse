@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Loading from '../../ExtraPage/Loading';
 
 const AssetList = () => {
     const [page, setPage] = useState(1);
@@ -16,12 +17,9 @@ const AssetList = () => {
             const [sortBy, order] = sort.split('-');
             const res = await axiosSecure.get('/assets', {
                 params: {
-                    page,
-                    limit,
-                    search,
+                    page, limit, search,
                     type: assetType,
-                    sort: sortBy,
-                    order,
+                    sort: sortBy, order,
                 }
             });
             return res.data;
@@ -55,7 +53,7 @@ const AssetList = () => {
     };
 
     if (isLoading) {
-        return <div className="text-center py-10">Loading Assets...</div>;
+        return <Loading></Loading>
     }
 
     if (isError) {
@@ -67,7 +65,7 @@ const AssetList = () => {
     return (
         <div className="p-6">
             <h2 className="text-3xl font-bold text-indigo-700 mb-6 border-b pb-3">
-                🏢 Company Assets Inventory
+                Company Assets Inventory
             </h2>
             <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
                 <form onSubmit={handleSearch} className="flex grow max-w-sm">
@@ -79,8 +77,7 @@ const AssetList = () => {
                     />
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-r-md hover:bg-indigo-700 transition"
-                    >
+                        className="px-4 py-2 bg-indigo-600 text-white rounded-r-md hover:bg-indigo-700 transition">
                         Search
                     </button>
                 </form>
@@ -89,8 +86,7 @@ const AssetList = () => {
                     <select
                         onChange={handleTypeChange}
                         value={assetType}
-                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500"
-                    >
+                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500">
                         <option value="">All Types</option>
                         <option value="Returnable">Returnable</option>
                         <option value="Non-returnable">Non-returnable</option>
@@ -98,8 +94,7 @@ const AssetList = () => {
                     <select
                         onChange={handleSortChange}
                         value={sort}
-                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500"
-                    >
+                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500">
                         <option value="dateAdded-desc">Date Added (Latest)</option>
                         <option value="dateAdded-asc">Date Added (Oldest)</option>
                         <option value="productQuantity-desc">Quantity (High to Low)</option>
@@ -149,16 +144,9 @@ const AssetList = () => {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{asset.productQuantity} (Available: {asset.availableQuantity})</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(asset.dateAdded).toLocaleDateString()}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button
-                                            className="text-indigo-600 hover:text-indigo-900 mr-3 transition"
-                                        >
-                                            Edit
+                                        <button className="text-indigo-600 hover:text-indigo-900 mr-3 transition">Edit
                                         </button>
-                                        <button
-                                            className="text-red-600 hover:text-red-900 transition"
-                                        >
-                                            Delete
-                                        </button>
+                                        <button className="text-red-600 hover:text-red-900 transition">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -171,18 +159,14 @@ const AssetList = () => {
                     <button
                         onClick={() => handlePageChange(page - 1)}
                         disabled={page === 1}
-                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition"
-                    >
-                        Previous
-                    </button>
+                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition">Previous</button>
                     <span className="px-4 py-2 bg-indigo-600 text-white rounded-md">
                         Page {page} of {totalPages}
                     </span>
                     <button
                         onClick={() => handlePageChange(page + 1)}
                         disabled={page === totalPages}
-                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition"
-                    >
+                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition">
                         Next
                     </button>
                 </div>
