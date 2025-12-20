@@ -3,12 +3,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import Loading from "../../ExtraPage/Loading";
 
 const AddEmployee = () => {
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
-
-    // 🔥 HR Package Status (Always Fresh)
     const {
         data: hrStatus = { currentEmployees: 0, packageLimit: 5 },
         isLoading: statusLoading,
@@ -22,8 +21,6 @@ const AddEmployee = () => {
         staleTime: 0,
         gcTime: 0
     });
-
-    // 🔥 Available Employees
     const {
         data: availableEmployees = [],
         isLoading: empLoading,
@@ -35,12 +32,10 @@ const AddEmployee = () => {
             return res.data;
         }
     });
-
-    // ✅ Page load holei force refresh
     useEffect(() => {
         refetchStatus();
         refetchEmployees();
-    }, []);
+    }, [refetchEmployees, refetchStatus]);
 
     const handleAddToTeam = async (employee) => {
         if (hrStatus.currentEmployees >= hrStatus.packageLimit) {
@@ -72,8 +67,6 @@ const AddEmployee = () => {
                     timer: 1500,
                     showConfirmButton: false,
                 });
-
-                // 🔥 refresh both
                 refetchStatus();
                 refetchEmployees();
             }
@@ -85,72 +78,56 @@ const AddEmployee = () => {
             );
         }
     };
-
     if (statusLoading || empLoading) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <span className="loading loading-spinner loading-lg"></span>
-            </div>
+            <Loading></Loading>
         );
     }
-
     const isLimitFull =
         hrStatus.currentEmployees >= hrStatus.packageLimit;
 
     return (
         <div className="p-8 max-w-7xl mx-auto min-h-screen bg-gray-50">
-            {/* HEADER */}
-            <div
-                className={`flex flex-col md:flex-row justify-between items-center p-8 rounded-3xl mb-10 shadow border ${isLimitFull
-                        ? "bg-red-50 border-red-200"
-                        : "bg-white border-gray-100"
-                    }`}
-            >
+            <div className={`flex flex-col md:flex-row justify-between items-center p-8 rounded-3xl mb-10 shadow border ${isLimitFull ? "bg-red-50 border-red-200"
+                : "bg-white border-gray-100"}`}>
                 <div>
                     <h2 className="text-3xl font-extrabold">
                         Add New Employees
                     </h2>
                     <p
                         className={`mt-2 font-medium ${isLimitFull
-                                ? "text-red-500"
-                                : "text-gray-500"
-                            }`}
-                    >
+                            ? "text-red-500"
+                            : "text-gray-500"
+                            }`}>
                         {isLimitFull
                             ? "Team limit full. Upgrade required."
                             : "Add employees to your organization"}
                     </p>
                 </div>
-
                 <div className="text-center mt-6 md:mt-0">
                     <p className="text-sm text-gray-400 uppercase">
                         Team Capacity
                     </p>
                     <p
                         className={`text-4xl font-black ${isLimitFull
-                                ? "text-red-600"
-                                : "text-blue-600"
-                            }`}
-                    >
+                            ? "text-red-600"
+                            : "text-blue-600"
+                            }`}>
                         {hrStatus.currentEmployees} /{" "}
                         {hrStatus.packageLimit}
                     </p>
-
                     <button
                         onClick={() =>
                             navigate("/dashboard/upgrade")
                         }
                         className={`btn mt-4 rounded-xl ${isLimitFull
-                                ? "btn-error text-white animate-pulse"
-                                : "btn-outline btn-primary"
-                            }`}
-                    >
-                        Upgrade Package
+                            ? "btn-error text-white animate-pulse"
+                            : "btn-outline btn-primary"
+                            }`}>Upgrade Package
                     </button>
                 </div>
             </div>
-
-            {/* EMPLOYEE TABLE */}
+            
             <div className="bg-white rounded-3xl shadow border">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
@@ -184,8 +161,8 @@ const AddEmployee = () => {
                                                     isLimitFull
                                                 }
                                                 className={`btn btn-sm rounded-xl ${isLimitFull
-                                                        ? "btn-disabled"
-                                                        : "btn-primary"
+                                                    ? "btn-disabled"
+                                                    : "btn-primary"
                                                     }`}
                                             >
                                                 {isLimitFull
