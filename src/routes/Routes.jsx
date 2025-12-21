@@ -21,6 +21,7 @@ import Upgrade from "../pages/Dashboard/hrDashboard/Upgrade";
 import PaymentSuccess from "../pages/Dashboard/hrDashboard/PaymentSuccess";
 import PaymentHistory from "../pages/Dashboard/hrDashboard/PaymentHistory";
 import MyTeam from "../pages/Dashboard/employeeDashboard/MyTeam";
+import HRRoute from "../Provider/HRRoute";
 
 
 export const router = createBrowserRouter([
@@ -57,58 +58,62 @@ export const router = createBrowserRouter([
     element: <PrivateRoute>
       <DashboardLayout></DashboardLayout>
     </PrivateRoute>,
-    children:[
+    children: [
       {
-        index:true,
-        Component:DashboardHome
+        index: true,
+        Component: DashboardHome
       },
       {
-        path:'add-assets',
-        element:<AddAsset></AddAsset>
+        path: 'add-assets',
+        element: <HRRoute>
+          <AddAsset></AddAsset>
+        </HRRoute>
       },
       {
-        path:'assets-list',
-        element:<AssetList></AssetList>
+        path: 'assets-list',
+        element: <HRRoute>
+          <AssetList></AssetList>
+        </HRRoute>
       },
       {
-        path:'all-requests',
-        element:<AllRequest></AllRequest>
+        path: 'all-requests',
+        element: <HRRoute><AllRequest></AllRequest></HRRoute>
       },
       {
-        path:'my-employees',
-        element:<MyEmployeeList></MyEmployeeList>
+        path: 'my-employees',
+        element: <HRRoute><MyEmployeeList></MyEmployeeList></HRRoute>
       },
       {
-        path:'add-employee',
-        element:<AddEmployee></AddEmployee>
+        path: 'add-employee',
+        element: <HRRoute><AddEmployee></AddEmployee></HRRoute>
       },
       {
-        path:'upgrade',
-        element:<Upgrade></Upgrade>
+        path: 'upgrade',
+        element: <HRRoute><Upgrade></Upgrade></HRRoute>
       },
       {
-        path:'payment-success',
-        element:<PaymentSuccess></PaymentSuccess>
+        path: 'payment-success',
+        element: <HRRoute><PaymentSuccess></PaymentSuccess></HRRoute>
       },
       {
-        path:'payment-history',
-        element:<PaymentHistory></PaymentHistory>
+        path: 'payment-history',
+        element: <HRRoute><PaymentHistory></PaymentHistory></HRRoute>
       },
       {
-        path:'profile',
-        Component:Profile
+        path: 'profile',
+        Component: Profile
       },
       {
-        path:'my-team',
-        Component:MyTeam
+        path: 'my-team',
+        Component: MyTeam
       },
       {
-        path:'my-assets',
-        element:<MyAssets></MyAssets>
+        path: 'my-assets',
+        element: <MyAssets></MyAssets>
       },
       {
-        path:'request-asset',
-        element:<RequestAsset></RequestAsset>
+        path: 'request-asset',
+        element: <RequestAsset></RequestAsset>
       }
     ]
   },
