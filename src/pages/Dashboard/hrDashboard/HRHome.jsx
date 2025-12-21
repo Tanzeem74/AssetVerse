@@ -20,8 +20,6 @@ const HRHome = () => {
     return (
         <div className="p-6 space-y-8">
             <h2 className="text-3xl font-bold">HR Dashboard Overview</h2>
-
-            {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="stat bg-white shadow-md border rounded-xl">
                     <div className="stat-title">Total Requests</div>
@@ -34,7 +32,7 @@ const HRHome = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Pie Chart Section */}
+                
                 <div className="bg-white p-6 rounded-xl shadow-md border">
                     <h3 className="text-xl font-semibold mb-4">Asset Type Distribution</h3>
                     <div className="h-64">
@@ -61,7 +59,7 @@ const HRHome = () => {
                     </div>
                 </div>
 
-                {/* Top Pending Requests Section */}
+                
                 <div className="bg-white p-6 rounded-xl shadow-md border">
                     <h3 className="text-xl font-semibold mb-4">Recent Pending Requests</h3>
                     <div className="overflow-x-auto">
