@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import toast from 'react-hot-toast';
 
 const RequestAsset = () => {
+    useEffect(() => {
+            document.title = "Request Asset - page";
+        }, []);
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const [selectedAsset, setSelectedAsset] = useState(null);

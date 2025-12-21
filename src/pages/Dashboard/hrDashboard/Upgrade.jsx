@@ -5,6 +5,9 @@ const Upgrade = () => {
     const axiosSecure = useAxiosSecure();
     const [packages, setPackages] = useState([]);
     const [loading, setLoading] = useState(true);
+    useEffect(() => {
+            document.title = "Upgrade - page";
+        }, []);
 
     useEffect(() => {
         axiosSecure.get('/packages')

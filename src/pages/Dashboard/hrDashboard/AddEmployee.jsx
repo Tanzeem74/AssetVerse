@@ -6,6 +6,9 @@ import { useNavigate } from "react-router";
 import Loading from "../../ExtraPage/Loading";
 
 const AddEmployee = () => {
+    useEffect(() => {
+            document.title = "Add Employee - page";
+        }, []);
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const {

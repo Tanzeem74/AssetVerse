@@ -3,12 +3,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useEffect } from 'react';
 
 
 const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
 const assetTypes = ['Returnable', 'Non-returnable'];
 
 const AddAsset = () => {
+    useEffect(() => {
+            document.title = "Add Asset - page";
+        }, []);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();

@@ -6,6 +6,9 @@ import Confetti from "react-confetti";
 
 
 const PaymentSuccess = () => {
+    useEffect(() => {
+            document.title = "Payment Success - page";
+        }, []);
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get("session_id");
     const axiosSecure = useAxiosSecure();

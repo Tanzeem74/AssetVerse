@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const MyTeam = () => {
+    useEffect(() => {
+            document.title = "My Team - page";
+        }, []);
     const axiosSecure = useAxiosSecure();
     const {
         data: team = [],

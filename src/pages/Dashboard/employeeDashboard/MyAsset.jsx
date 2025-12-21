@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 
 const MyAssets = () => {
+    useEffect(() => {
+            document.title = "My Asset - page";
+        }, []);
     const axiosSecure = useAxiosSecure();
     const [search, setSearch] = useState('');
     const [filterStatus, setFilterStatus] = useState('');

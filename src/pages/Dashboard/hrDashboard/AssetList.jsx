@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -6,6 +6,9 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Loading from '../../ExtraPage/Loading';
 
 const AssetList = () => {
+    useEffect(() => {
+            document.title = "AssetList - page";
+        }, []);
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [assetType, setAssetType] = useState('');

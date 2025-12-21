@@ -2,9 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import Loading from '../../ExtraPage/Loading';
+import { useEffect } from 'react';
 
 const MyEmployeeList = () => {
     const axiosSecure = useAxiosSecure();
+    useEffect(() => {
+            document.title = "My Employee - page";
+        }, []);
 
     const { data, refetch, isLoading } = useQuery({
         queryKey: ['my-employees'],

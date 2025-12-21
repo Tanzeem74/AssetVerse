@@ -1,8 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const PaymentHistory = () => {
     const axiosSecure = useAxiosSecure();
+    useEffect(() => {
+            document.title = "Payment History - page";
+        }, []);
 
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ['payment-history'],

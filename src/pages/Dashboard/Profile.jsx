@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -8,6 +8,9 @@ import Loading from "../ExtraPage/Loading";
 import useRole from "../../hooks/useRole";
 
 const Profile = () => {
+    useEffect(() => {
+            document.title = "Profile - page";
+        }, []);
     const { user, updateUser } = useAuth();
     const {role,roleLoading}=useRole()
     const axiosSecure = useAxiosSecure();

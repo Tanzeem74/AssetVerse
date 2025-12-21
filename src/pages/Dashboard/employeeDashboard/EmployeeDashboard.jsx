@@ -1,7 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useEffect } from 'react';
 
 const EmployeeDashboard = () => {
+    useEffect(() => {
+            document.title = "Dashboard - page";
+        }, []);
     const axiosSecure = useAxiosSecure();
 
     const { data: stats, isLoading } = useQuery({
