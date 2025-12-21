@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Loading from '../../ExtraPage/Loading';
 
@@ -9,8 +10,10 @@ const AssetList = () => {
     const [search, setSearch] = useState('');
     const [assetType, setAssetType] = useState('');
     const [sort, setSort] = useState('dateAdded-desc');
+    const [editingAsset, setEditingAsset] = useState(null);
     const limit = 10;
     const axiosSecure = useAxiosSecure();
+    const queryClient = useQueryClient();
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['assets', page, limit, search, assetType, sort],
         queryFn: async () => {
@@ -25,6 +28,59 @@ const AssetList = () => {
             return res.data;
         }
     });
+    const { mutate: deleteAsset } = useMutation({
+        mutationFn: async (id) => {
+            const res = await axiosSecure.delete(`/assets/${id}`);
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['assets']);
+            Swal.fire('Deleted!', 'Asset has been removed.', 'success');
+        },
+        onError: (err) => {
+            toast.error(err.response?.data?.message || "Delete failed");
+        }
+    });
+    const { mutate: updateAsset } = useMutation({
+        mutationFn: async (updatedData) => {
+            const res = await axiosSecure.patch(`/assets/${updatedData.id}`, updatedData);
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['assets']);
+            toast.success('Asset updated successfully!');
+            setEditingAsset(null);
+        },
+        onError: (err) => {
+            toast.error(err.response?.data?.message || "Update failed");
+        }
+    });
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#4f46e5',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteAsset(id);
+            }
+        });
+    };
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const updatedData = {
+            id: editingAsset._id,
+            productName: form.productName.value,
+            productType: form.productType.value,
+            productQuantity: parseInt(form.productQuantity.value)
+        };
+        updateAsset(updatedData);
+    };
 
     const assets = data?.assets || [];
     const totalPages = data?.totalPages || 1;
@@ -144,9 +200,9 @@ const AssetList = () => {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{asset.productQuantity} (Available: {asset.availableQuantity})</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(asset.dateAdded).toLocaleDateString()}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button className="text-indigo-600 hover:text-indigo-900 mr-3 transition">Edit
+                                        <button onClick={() => setEditingAsset(asset)} className="text-indigo-600 hover:text-indigo-900 mr-3 transition">Edit
                                         </button>
-                                        <button className="text-red-600 hover:text-red-900 transition">Delete</button>
+                                        <button onClick={() => handleDelete(asset._id)} className="text-red-600 hover:text-red-900 transition">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -169,6 +225,34 @@ const AssetList = () => {
                         className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition">
                         Next
                     </button>
+                </div>
+            )}
+            {editingAsset && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl">
+                        <h3 className="text-xl font-bold text-indigo-700 mb-4">Update Asset</h3>
+                        <form onSubmit={handleEditSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium">Name</label>
+                                <input name="productName" defaultValue={editingAsset.productName} className="w-full border rounded p-2" required />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium">Type</label>
+                                <select name="productType" defaultValue={editingAsset.productType} className="w-full border rounded p-2">
+                                    <option value="Returnable">Returnable</option>
+                                    <option value="Non-returnable">Non-returnable</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium">Quantity</label>
+                                <input name="productQuantity" type="number" defaultValue={editingAsset.productQuantity} className="w-full border rounded p-2" required />
+                            </div>
+                            <div className="flex justify-end gap-3 mt-4">
+                                <button type="button" onClick={() => setEditingAsset(null)} className="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+                                <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded">Update</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>
