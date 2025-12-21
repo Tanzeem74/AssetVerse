@@ -13,6 +13,7 @@ const MyEmployeeList = () => {
             return res.data;
         }
     });
+    console.log(data)
     const handleRemove = async (email) => {
         if (window.confirm("Are you sure you want to remove this employee?")) {
             try {
@@ -44,11 +45,6 @@ const MyEmployeeList = () => {
                 {data?.employees.map(emp => (
                     <div key={emp._id} className="card bg-white shadow-xl border border-gray-100">
                         <div className="card-body items-center text-center">
-                            <div className="avatar">
-                                <div className="w-24 rounded-full ring ring-indigo-300 ring-offset-2">
-                                    <img src={emp.employeeImage || "https://via.placeholder.com/150"} alt={emp.employeeName} />
-                                </div>
-                            </div>
                             <h2 className="card-title mt-4">{emp.employeeName}</h2>
                             <p className="text-gray-500">{emp.employeeEmail}</p>
                             <div className="card-actions mt-4 w-full">

@@ -6,11 +6,9 @@ import toast from 'react-hot-toast';
 
 const RequestAsset = () => {
     const axiosSecure = useAxiosSecure();
-    const { user } = useAuth(); // useAuth theke user nilam
+    const { user } = useAuth();
     const [selectedAsset, setSelectedAsset] = useState(null);
     const [note, setNote] = useState('');
-
-    // Available assets load kora
     const { data: assets = [], isLoading, refetch } = useQuery({
         queryKey: ['available-assets'],
         queryFn: async () => {
@@ -21,8 +19,6 @@ const RequestAsset = () => {
 
     const handleRequestSubmit = async () => {
         if (!selectedAsset) return;
-
-        // Backend-er required data structure
         const requestData = {
             assetId: selectedAsset._id,
             assetName: selectedAsset.productName,
@@ -32,7 +28,6 @@ const RequestAsset = () => {
             requesterName: user?.displayName || "Employee", // User name
             note: note
         };
-
         try {
             const res = await axiosSecure.post('/asset-requests', requestData);
 
@@ -80,8 +75,6 @@ const RequestAsset = () => {
                     </div>
                 ))}
             </div>
-
-            {/* Request Modal */}
             {selectedAsset && (
                 <div className="modal modal-open">
                     <div className="modal-box">
@@ -94,7 +87,6 @@ const RequestAsset = () => {
                             value={note}
                             onChange={(e) => setNote(e.target.value)}
                         ></textarea>
-
                         <div className="modal-action">
                             <button
                                 onClick={handleRequestSubmit}
