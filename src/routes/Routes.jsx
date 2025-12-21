@@ -22,6 +22,7 @@ import PaymentSuccess from "../pages/Dashboard/hrDashboard/PaymentSuccess";
 import PaymentHistory from "../pages/Dashboard/hrDashboard/PaymentHistory";
 import MyTeam from "../pages/Dashboard/employeeDashboard/MyTeam";
 import HRRoute from "../Provider/HRRoute";
+import EmployeeRoute from "../Provider/EmployeeRoute";
 
 
 export const router = createBrowserRouter([
@@ -105,15 +106,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'my-team',
-        Component: MyTeam
+        element: <EmployeeRoute><MyTeam></MyTeam></EmployeeRoute>
       },
       {
         path: 'my-assets',
-        element: <MyAssets></MyAssets>
+        element: <EmployeeRoute><MyAssets></MyAssets></EmployeeRoute>
       },
       {
         path: 'request-asset',
-        element: <RequestAsset></RequestAsset>
+        element: <EmployeeRoute><RequestAsset></RequestAsset></EmployeeRoute>
       }
     ]
   },
