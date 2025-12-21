@@ -25,7 +25,7 @@ const RequestAsset = () => {
             assetType: selectedAsset.productType,
             hrEmail: selectedAsset.hrEmail,
             companyName: selectedAsset.companyName,
-            requesterName: user?.displayName || "Employee", // User name
+            requesterName: user?.displayName || "Employee",
             note: note
         };
         try {

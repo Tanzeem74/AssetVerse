@@ -16,7 +16,6 @@ const EmployeeDashboard = () => {
 
     return (
         <div className="p-6 space-y-10">
-            {/* 1. Affiliation Section */}
             {stats?.affiliation ? (
                 <div className="bg-linear-to-r from-blue-500 to-indigo-600 p-8 rounded-2xl text-white shadow-xl">
                     <div className="flex items-center gap-6">
@@ -32,8 +31,6 @@ const EmployeeDashboard = () => {
                     <span>You are not yet affiliated with any company. Please wait for HR approval.</span>
                 </div>
             )}
-
-            {/* 2. Pending Requests */}
             <section>
                 <h3 className="text-2xl font-bold mb-4">My Pending Requests</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -47,8 +44,6 @@ const EmployeeDashboard = () => {
                     {stats?.pendingRequests?.length === 0 && <p className="text-gray-400">No pending requests.</p>}
                 </div>
             </section>
-
-            {/* 3. Monthly Activity */}
             <section>
                 <h3 className="text-2xl font-bold mb-4">Requests Made This Month</h3>
                 <div className="overflow-x-auto bg-white rounded-lg shadow">

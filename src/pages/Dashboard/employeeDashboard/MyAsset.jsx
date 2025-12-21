@@ -63,8 +63,6 @@ const MyAssets = () => {
         printWindow.document.close();
         printWindow.print();
     };
-
-    // Loading State
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[60vh]">
@@ -76,8 +74,6 @@ const MyAssets = () => {
     return (
         <div className="p-6">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">My Requested Assets</h2>
-
-            {/* Search and Filter Section */}
             <div className="flex flex-col md:flex-row gap-4 mb-8">
                 <input
                     type="text"
@@ -96,8 +92,6 @@ const MyAssets = () => {
                     <option value="returned">Returned</option>
                 </select>
             </div>
-
-            {/* Table or Empty Message */}
             {myRequests.length === 0 ? (
                 <div className="text-center py-20 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
                     <p className="text-xl text-gray-500 font-medium">No asset requests found matching your criteria.</p>
