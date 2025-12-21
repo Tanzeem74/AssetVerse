@@ -19,7 +19,7 @@ const EmployeeDashboard = () => {
             {stats?.affiliation ? (
                 <div className="bg-linear-to-r from-blue-500 to-indigo-600 p-8 rounded-2xl text-white shadow-xl">
                     <div className="flex items-center gap-6">
-                        <img src={stats.affiliation.companyLogo} alt="Logo" className="w-20 h-20 rounded-full border-4 border-white/30" />
+                        {/* <img src={stats.affiliation.companyLogo} alt="Logo" className="w-20 h-20 rounded-full border-4 border-white/30" /> */}
                         <div>
                             <h2 className="text-3xl font-bold italic">{stats.affiliation.companyName}</h2>
                             <p className="text-blue-100 mt-1">Officially Affiliated Employee</p>

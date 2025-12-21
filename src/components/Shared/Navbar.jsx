@@ -64,7 +64,7 @@ const Navbar = () => {
                                         </Link>
 
                                         <Link
-                                            to="/my-model"
+                                            to="/dashboard/assets-list"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700eam dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
@@ -72,21 +72,21 @@ const Navbar = () => {
                                         </Link>
 
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/add-assets"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             Add Asset
                                         </Link>
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/all-requests"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             All Requests
                                         </Link>
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/my-employees"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
@@ -120,7 +120,7 @@ const Navbar = () => {
                                         </Link>
 
                                         <Link
-                                            to="/my-model"
+                                            to="/dashboard/my-assets"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700eam dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
@@ -128,14 +128,14 @@ const Navbar = () => {
                                         </Link>
 
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/my-team"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             My Team
                                         </Link>
                                         <Link
-                                            to="/purchases"
+                                            to="/dashboard/request-asset"
                                             className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
