@@ -6,7 +6,6 @@ const Upgrade = () => {
     const [packages, setPackages] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // 1. Backend theke packages load kora
     useEffect(() => {
         axiosSecure.get('/packages')
             .then(res => {
@@ -21,18 +20,16 @@ const Upgrade = () => {
 
     const handleUpgrade = async (pkg) => {
         try {
-            // Apnar DB field-er naam 'employeeLimit', tai oitai nite hobe
             const slotCount = parseInt(pkg.employeeLimit);
 
             if (!slotCount || isNaN(slotCount)) {
                 return alert("Error: Employee limit not found in package!");
             }
 
-            console.log("Sending slotCount:", slotCount); // Eikhane ekhon 20 dekhabe
-
+            //console.log("Sending slotCount:", slotCount);
             const res = await axiosSecure.post('/payment-checkout-session', {
                 price: pkg.price,
-                members: slotCount // Backend metadata-te pathanor jonno
+                members: slotCount 
             });
 
             if (res.data.url) {

@@ -11,8 +11,6 @@ const PaymentHistory = () => {
             return res.data;
         }
     });
-
-    // Date format korar function (Standard JS)
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -30,7 +28,7 @@ const PaymentHistory = () => {
             <div className="bg-white rounded-4xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        {/* Table Head */}
+                        
                         <thead className="bg-gray-50/50 text-gray-400">
                             <tr>
                                 <th className="py-6 px-8 font-bold text-[11px] uppercase tracking-widest">Transaction ID</th>
@@ -40,7 +38,7 @@ const PaymentHistory = () => {
                             </tr>
                         </thead>
 
-                        {/* Table Body */}
+                        
                         <tbody className="divide-y divide-gray-50">
                             {payments.length > 0 ? (
                                 payments.map((payment) => (

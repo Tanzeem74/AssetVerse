@@ -12,16 +12,14 @@ const PaymentSuccess = () => {
     const navigate = useNavigate();
     const [status, setStatus] = useState("verifying");
 
-    // 🔥 Anti-duplicate trigger preventer
     const hasCalledAPI = useRef(false);
 
     useEffect(() => {
-        // Jodi sessionId na thake ba agei API call hoye thake, tobe return korbe
         if (!sessionId || hasCalledAPI.current) return;
 
         const verifyPayment = async () => {
             try {
-                hasCalledAPI.current = true; // Mark as called
+                hasCalledAPI.current = true;
                 setStatus("verifying");
 
                 const res = await axiosSecure.patch(`/payment-success?session_id=${sessionId}`);
@@ -34,8 +32,6 @@ const PaymentSuccess = () => {
                         text: `Limit upgraded! Total slots added: ${res.data.newLimit}`,
                         confirmButtonText: 'Go to Dashboard',
                     }).then(() => {
-                        // 🔥 Important: Hard Refresh. 
-                        // window.location.href dilei shudu fresh data load hobe.
                         window.location.href = '/dashboard/add-employee';
                     });
                 } else {
