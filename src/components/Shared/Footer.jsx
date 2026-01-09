@@ -39,7 +39,7 @@ const Footer = () => {
                     <div className="flex flex-wrap gap-4 mt-3 text-gray-500 dark:text-gray-400 text-xs">
                         <a href="/terms" className="hover:underline">Terms & Conditions</a>
                         <a href="#" className="hover:underline">Privacy Policy</a>
-                        <a href="#" className="hover:underline">Contact</a>
+                        <a href="/contact" className="hover:underline">Contact</a>
                     </div>
                 </div>
             </div>

@@ -25,6 +25,7 @@ import HRRoute from "../Provider/HRRoute";
 import EmployeeRoute from "../Provider/EmployeeRoute";
 import AboutUs from "../pages/ExtraPage/AboutUs";
 import TermsAndConditions from "../pages/ExtraPage/TermsAndConditions";
+import Contact from "../pages/ExtraPage/Contact";
 
 
 export const router = createBrowserRouter([
@@ -122,6 +123,7 @@ export const router = createBrowserRouter([
   },
   {path:'/about',Component:AboutUs},
   {path:'/terms',Component:TermsAndConditions},
+  {path:'/contact',Component:Contact},
   {
     path: '/*',
     Component: ErrorPage
