@@ -58,7 +58,7 @@ const Login = () => {
                     <div><a className="link link-hover">Forgot password?</a></div>
                     <button className="btn btn-primary mt-4">Login</button>
                 </fieldset>
-                <p className='text-center font-semibold'>New to Zap Shift ? <Link state={location.state} className='text-blue-500 underline' to='/auth/signup-user'>Register</Link></p>
+                <p className='text-center font-semibold'>New to AssetVerse ? <Link state={location.state} className='text-blue-500 underline' to='/auth/signup-user'>Register</Link></p>
             </form>
         </div>
     );

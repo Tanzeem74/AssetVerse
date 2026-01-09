@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ChevronDown } from "lucide-react";
-import { Link } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
+import { Link, NavLink } from 'react-router';
 import logoImg from '../../assets/logo.png'
 import useAuth from '../../hooks/useAuth';
 import useRole from '../../hooks/useRole';
@@ -9,7 +9,17 @@ const Navbar = () => {
     const { user, logOut } = useAuth();
     const { role } = useRole();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    
+
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+    useEffect(() => {
+        document.querySelector("html").setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+    const handleTheme = (checked) => {
+        setTheme(checked ? "dark" : "light");
+    };
+
     console.log(role);
     const handleLogOut = () => {
         logOut()
@@ -18,17 +28,51 @@ const Navbar = () => {
                 console.log(error)
             })
     }
+    const publicLinks = (
+        <>
+            <li><NavLink to="/" className={({ isActive }) => isActive ? "text-blue-600 font-bold" : "hover:text-blue-500 text-base-content "}>Home</NavLink></li>
+            <li><NavLink to="/about" className={({ isActive }) => isActive ? "text-blue-600 font-bold" : "hover:text-blue-500 text-base-content"}>About Us</NavLink></li>
+            <li><NavLink to="/contact" className={({ isActive }) => isActive ? "text-blue-600 font-bold" : "hover:text-blue-500 text-base-content"}>Contact</NavLink></li>
+        </>
+    );
+    const authenticatedLinks = (
+        <>
+            <li><NavLink to="/" className="hover:text-blue-500 text-base-content">Home</NavLink></li>
+            <li><NavLink to="/about" className="hover:text-blue-500 text-base-content">About Us</NavLink></li>
+            {role === 'hr' ? (
+                <>
+                    <li><NavLink to="/dashboard/add-assets" className="hover:text-blue-500 text-base-content">Add Asset</NavLink></li>
+                    <li><NavLink to="/dashboard/all-requests" className="hover:text-blue-500 text-base-content ">Requests</NavLink></li>
+                </>
+            ) : (
+                <>
+                    <li><NavLink to="/dashboard/my-assets" className="hover:text-blue-500 text-base-content">My Assets</NavLink></li>
+                    <li><NavLink to="/dashboard/request-asset" className="hover:text-blue-500 text-base-content">Request Asset</NavLink></li>
+                </>
+            )}
+            <li><NavLink to="/dashboard" className="hover:text-blue-500 text-base-content">Dashboard</NavLink></li>
+        </>
+    );
     return (
-        <nav className="bg-white shadow-md">
+        <nav className="bg-base-100 shadow-md">
             <div className="navbar max-w-7xl mx-auto px-4 py-3">
-                <div className="navbar-start">
+                <div className="navbar-start space-x-2">
                     <Link to="/" className="text-2xl font-bold text-blue-500"><img className='w-16 h-13 rounded-2xl' src={logoImg} alt="" /></Link>
+                    <Link to='/' className='font-bold text-2xl text-[#4F46E5]'>AssetVerse</Link>
                 </div>
                 <div className="navbar-center">
-                    <Link to='/' className='font-bold text-2xl text-[#4F46E5]'>AssetVerse</Link>
+                    <ul className="flex space-x-6 font-medium dark:text-gray-200">
+                        {user ? authenticatedLinks : publicLinks}
+                    </ul>
                 </div>
                 <div className="navbar-end">
                     <div className="flex items-center space-x-4">
+                        <label className="swap swap-rotate btn btn-ghost btn-circle btn-sm">
+                            <input type="checkbox" onChange={(e) => handleTheme(e.target.checked)} checked={theme === "dark"} />
+                            <Sun className="swap-on w-5 h-5 text-yellow-500" />
+                            <Moon className="swap-off w-5 h-5 text-slate-700" />
+                        </label>
+
                         {user ? (
                             <div className="relative">
                                 <button
@@ -150,19 +194,19 @@ const Navbar = () => {
                                         </button>
                                     </div>
                                 )}
-                                
+
                             </div>
                         ) : (
                             <div className='flex gap-2'>
                                 <Link
                                     to="/auth/login"
-                                    className=" hover:bg-blue-400 text-black px-4 py-2 rounded-lg font-medium shadow-md"
+                                    className=" hover:bg-blue-400 text-base-content px-4 py-2 rounded-lg font-medium shadow-md"
                                 >
                                     Login
                                 </Link>
                                 <Link
                                     to="/auth/signup-user"
-                                    className=" hover:bg-blue-400 text-black px-4 py-2 rounded-lg font-medium shadow-md"
+                                    className=" hover:bg-blue-400 text-base-content px-4 py-2 rounded-lg font-medium shadow-md"
                                 >
                                     Sign Up
                                 </Link>

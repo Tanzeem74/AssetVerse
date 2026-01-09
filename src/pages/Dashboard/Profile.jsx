@@ -6,13 +6,15 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Loading from "../ExtraPage/Loading";
 import useRole from "../../hooks/useRole";
+import { FaUserEdit, FaCamera, FaIdBadge, FaCalendarAlt, FaEnvelope } from "react-icons/fa";
 
 const Profile = () => {
     useEffect(() => {
-            document.title = "Profile - page";
-        }, []);
+        document.title = "Profile - AssetVerse";
+    }, []);
+
     const { user, updateUser } = useAuth();
-    const {role,roleLoading}=useRole()
+    const { role, roleLoading } = useRole();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
     const [uploading, setUploading] = useState(false);
@@ -55,80 +57,134 @@ const Profile = () => {
             await mutation.mutateAsync({ name, photoURL });
             form.reset();
         } catch (err) {
-            toast.error("Update failed!",err);
+            toast.error("Update failed!");
+            console.error(err);
         } finally {
             setUploading(false);
         }
     };
 
-    if (isLoading || roleLoading) return <Loading></Loading>
+    if (isLoading || roleLoading) return <Loading />;
 
     return (
-        <div className="max-w-4xl mx-auto my-10 px-4">
-            <div className="bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
-                <div className="h-32 bg-linear-to-r from-indigo-500 to-purple-600"></div>
-                <div className="px-8 pb-8">
-                    <div className="relative -mt-16 flex flex-col md:flex-row items-end gap-6 mb-8">
-                        <img
-                            src={user?.photoURL || "https://via.placeholder.com/150"}
-                            className="w-40 h-40 rounded-2xl border-4 border-white shadow-xl object-cover bg-white"
-                            alt="Profile"
-                        />
-                        <div className="flex-1 pb-2 text-center md:text-left">
-                            <h2 className="text-3xl font-bold text-gray-800">{userData?.name}</h2>
-                            <p className="text-indigo-600 font-medium">{userData?.email}</p>
-                            <span className="mt-2 inline-block px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest">
-                                {role}
-                            </span>
+        <div className="max-w-5xl mx-auto my-12 px-4 animate-fadeIn">
+            <div className="bg-base-100 shadow-2xl rounded-[2.5rem] overflow-hidden border border-base-300 transition-all duration-300">
+                
+                {/* Banner Section */}
+                <div className="h-48 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-500 relative">
+                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                </div>
+
+                <div className="px-6 md:px-12 pb-10">
+                    {/* Header: Avatar and Name */}
+                    <div className="relative -mt-20 flex flex-col md:flex-row items-center md:items-end gap-6 mb-12">
+                        <div className="relative group">
+                            <img
+                                src={userData?.photoURL || "https://via.placeholder.com/150"}
+                                className="w-44 h-44 rounded-3xl border-8 border-base-100 shadow-2xl object-cover bg-base-200 transition-transform duration-500 group-hover:scale-105"
+                                alt="Profile"
+                            />
+                            <div className="absolute bottom-4 right-4 p-2 bg-primary text-white rounded-xl shadow-lg cursor-pointer">
+                                <FaCamera className="text-sm" />
+                            </div>
+                        </div>
+                        
+                        <div className="flex-1 pb-4 text-center md:text-left space-y-2">
+                            <h2 className="text-4xl font-black tracking-tight">{userData?.name}</h2>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-3 items-center">
+                                <span className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-xl text-xs font-black uppercase tracking-widest border border-primary/20">
+                                    <FaIdBadge /> {role}
+                                </span>
+                                <span className="flex items-center gap-2 text-sm opacity-60 font-medium">
+                                    <FaEnvelope className="text-primary" /> {userData?.email}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div className="lg:col-span-1 space-y-4">
-                            <h3 className="text-lg font-bold text-gray-700 border-b pb-2">Information</h3>
-                            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-                                <div>
-                                    <p className="text-xs text-gray-400 uppercase font-bold">Role</p>
-                                    <p className="text-gray-700 font-semibold">{userData?.role}</p>
-                                </div>
-                                <div>
-                                    <p className="text-xs text-gray-400 uppercase font-bold">Date of Birth</p>
-                                    <p className="text-gray-700 font-semibold">{userData?.dateOfBirth || "N/A"}</p>
-                                </div>
-                                <div>
-                                    <p className="text-xs text-gray-400 uppercase font-bold">Account Created</p>
-                                    <p className="text-gray-700 font-semibold">
-                                        {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString() : "N/A"}
-                                    </p>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        {/* Sidebar: Details */}
+                        <div className="lg:col-span-4 space-y-6">
+                            <div className="p-8 bg-base-200/50 rounded-4xl border border-base-300 space-y-6">
+                                <h3 className="text-xl font-black flex items-center gap-3">
+                                    Personal Details
+                                </h3>
+                                
+                                <div className="space-y-5">
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-3 bg-base-100 rounded-2xl shadow-sm text-primary">
+                                            <FaIdBadge />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] opacity-50 uppercase font-black tracking-tighter">System ID</p>
+                                            <p className="font-bold text-sm truncate max-w-[150px]">{userData?._id}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-3 bg-base-100 rounded-2xl shadow-sm text-secondary">
+                                            <FaCalendarAlt />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] opacity-50 uppercase font-black tracking-tighter">Joined Date</p>
+                                            <p className="font-bold text-sm">
+                                                {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "N/A"}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="lg:col-span-2">
-                            <h3 className="text-lg font-bold text-gray-700 border-b pb-2 mb-4">Update Profile</h3>
-                            <form onSubmit={handleUpdateProfile} className="space-y-5">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="form-control">
-                                        <label className="label font-semibold text-sm">Full Name</label>
+
+                        {/* Main Content: Update Form */}
+                        <div className="lg:col-span-8 bg-base-100 p-2 md:p-6">
+                            <div className="flex items-center justify-between mb-8 border-b border-base-300 pb-4">
+                                <h3 className="text-2xl font-black flex items-center gap-3">
+                                    <FaUserEdit className="text-primary" /> Edit Profile
+                                </h3>
+                            </div>
+
+                            <form onSubmit={handleUpdateProfile} className="space-y-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="form-control group">
+                                        <label className="label">
+                                            <span className="label-text font-black text-xs uppercase opacity-60">Display Name</span>
+                                        </label>
                                         <input
                                             name="name"
                                             defaultValue={userData?.name}
-                                            className="input input-bordered focus:ring-2 focus:ring-indigo-400 outline-none"
+                                            className="input input-bordered rounded-2xl focus:ring-4 focus:ring-primary/10 transition-all font-medium border-base-300"
+                                            placeholder="Your full name"
                                         />
                                     </div>
+
                                     <div className="form-control">
-                                        <label className="label font-semibold text-sm">Profile Photo</label>
+                                        <label className="label">
+                                            <span className="label-text font-black text-xs uppercase opacity-60">Profile Image</span>
+                                        </label>
                                         <input
                                             type="file"
                                             name="photo"
-                                            className="file-input file-input-bordered w-full"
+                                            className="file-input file-input-bordered file-input-primary w-full rounded-2xl border-base-300"
                                         />
                                     </div>
                                 </div>
-                                <div className="flex justify-end">
+
+                                <div className="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                                    <p className="text-xs opacity-60 font-medium max-w-xs">
+                                        Note: Your email address is linked to your HR affiliation and cannot be changed manually.
+                                    </p>
                                     <button
+                                        type="submit"
                                         disabled={uploading}
-                                        className="btn btn-primary bg-indigo-600 border-none text-white px-10 rounded-xl">
-                                        {uploading ? "Updating..." : "Save Changes"}
+                                        className="btn btn-primary px-8 rounded-2xl font-black shadow-lg shadow-primary/20"
+                                    >
+                                        {uploading ? (
+                                            <>
+                                                <span className="loading loading-spinner loading-xs"></span>
+                                                Updating
+                                            </>
+                                        ) : "Save Changes"}
                                     </button>
                                 </div>
                             </form>

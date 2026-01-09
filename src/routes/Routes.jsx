@@ -23,6 +23,8 @@ import PaymentHistory from "../pages/Dashboard/hrDashboard/PaymentHistory";
 import MyTeam from "../pages/Dashboard/employeeDashboard/MyTeam";
 import HRRoute from "../Provider/HRRoute";
 import EmployeeRoute from "../Provider/EmployeeRoute";
+import AboutUs from "../pages/ExtraPage/AboutUs";
+import TermsAndConditions from "../pages/ExtraPage/TermsAndConditions";
 
 
 export const router = createBrowserRouter([
@@ -118,6 +120,8 @@ export const router = createBrowserRouter([
       }
     ]
   },
+  {path:'/about',Component:AboutUs},
+  {path:'/terms',Component:TermsAndConditions},
   {
     path: '/*',
     Component: ErrorPage

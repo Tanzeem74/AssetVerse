@@ -122,30 +122,31 @@ const AssetList = () => {
     }
 
     return (
-        <div className="p-6">
-            <h2 className="text-3xl font-bold text-indigo-700 mb-6 border-b pb-3">
+        <div className="p-6 text-base-content min-h-screen bg-base-200/30">
+            <h2 className="text-3xl font-bold text-primary mb-6 border-b border-base-300 pb-3">
                 Company Assets Inventory
             </h2>
+            
             <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
                 <form onSubmit={handleSearch} className="flex grow max-w-sm">
                     <input
                         type="text"
                         name="search"
                         placeholder="Search by Product Name..."
-                        className="px-4 py-2 border border-gray-300 rounded-l-md w-full focus:ring-indigo-500 focus:border-indigo-500"
+                        className="input input-bordered rounded-r-none w-full focus:outline-primary bg-base-100"
                     />
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-r-md hover:bg-indigo-700 transition">
+                        className="btn btn-primary rounded-l-none">
                         Search
                     </button>
                 </form>
 
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                     <select
                         onChange={handleTypeChange}
                         value={assetType}
-                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500">
+                        className="select select-bordered bg-base-100">
                         <option value="">All Types</option>
                         <option value="Returnable">Returnable</option>
                         <option value="Non-returnable">Non-returnable</option>
@@ -153,7 +154,7 @@ const AssetList = () => {
                     <select
                         onChange={handleSortChange}
                         value={sort}
-                        className="px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-indigo-500 focus:border-indigo-500">
+                        className="select select-bordered bg-base-100">
                         <option value="dateAdded-desc">Date Added (Latest)</option>
                         <option value="dateAdded-asc">Date Added (Oldest)</option>
                         <option value="productQuantity-desc">Quantity (High to Low)</option>
@@ -162,50 +163,55 @@ const AssetList = () => {
                 </div>
             </div>
 
-            <div className="bg-white shadow-lg rounded-lg overflow-x-auto">
+            <div className="bg-base-100 shadow-xl rounded-lg overflow-x-auto border border-base-300">
                 {assets.length === 0 ? (
-                    <p className="p-6 text-center text-gray-500">No assets found matching the criteria.</p>
+                    <p className="p-6 text-center opacity-60">No assets found matching the criteria.</p>
                 ) : (
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="table w-full">
+                        <thead className="bg-base-200 text-base-content">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Added</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-base-100">
                             {assets.map((asset) => (
-                                <tr key={asset._id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <tr key={asset._id} className="hover:bg-base-200/50 border-b border-base-200">
+                                    <td>
                                         {asset.productImage ? (
                                             <img
                                                 src={asset.productImage}
                                                 alt={asset.productName}
-                                                className="h-10 w-10 rounded-full object-cover"
+                                                className="h-12 w-12 rounded-lg object-cover border border-base-300"
                                             />
                                         ) : (
-                                            <div className="h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-500">
+                                            <div className="h-12 w-12 bg-base-300 rounded-lg flex items-center justify-center text-[10px] opacity-50">
                                                 No Img
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{asset.productName}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${asset.productType === 'Returnable' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                                            }`}>
+                                    <td className="font-semibold">{asset.productName}</td>
+                                    <td>
+                                        <span className={`badge ${asset.productType === 'Returnable' ? 'badge-success' : 'badge-warning'} badge-sm font-medium`}>
                                             {asset.productType}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{asset.productQuantity} (Available: {asset.availableQuantity})</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(asset.dateAdded).toLocaleDateString()}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button onClick={() => setEditingAsset(asset)} className="text-indigo-600 hover:text-indigo-900 mr-3 transition">Edit
-                                        </button>
-                                        <button onClick={() => handleDelete(asset._id)} className="text-red-600 hover:text-red-900 transition">Delete</button>
+                                    <td>
+                                        <div className="flex flex-col">
+                                            <span>Total: {asset.productQuantity}</span>
+                                            <span className="text-xs opacity-60">Available: {asset.availableQuantity}</span>
+                                        </div>
+                                    </td>
+                                    <td>{new Date(asset.dateAdded).toLocaleDateString()}</td>
+                                    <td>
+                                        <div className="flex gap-2">
+                                            <button onClick={() => setEditingAsset(asset)} className="btn btn-ghost btn-xs text-info hover:bg-info/10">Edit</button>
+                                            <button onClick={() => handleDelete(asset._id)} className="btn btn-ghost btn-xs text-error hover:bg-error/10">Delete</button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -213,46 +219,50 @@ const AssetList = () => {
                     </table>
                 )}
             </div>
+
             {totalPages > 1 && (
-                <div className="flex justify-center items-center space-x-2 mt-6">
+                <div className="flex justify-center items-center gap-2 mt-8">
                     <button
                         onClick={() => handlePageChange(page - 1)}
                         disabled={page === 1}
-                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition">Previous</button>
-                    <span className="px-4 py-2 bg-indigo-600 text-white rounded-md">
-                        Page {page} of {totalPages}
-                    </span>
+                        className="btn btn-outline btn-sm">Previous</button>
+                    <div className="join">
+                        <span className="join-item btn btn-sm btn-active pointer-events-none">
+                            Page {page} of {totalPages}
+                        </span>
+                    </div>
                     <button
                         onClick={() => handlePageChange(page + 1)}
                         disabled={page === totalPages}
-                        className="px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition">
+                        className="btn btn-outline btn-sm">
                         Next
                     </button>
                 </div>
             )}
+
             {editingAsset && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl">
-                        <h3 className="text-xl font-bold text-indigo-700 mb-4">Update Asset</h3>
+                <div className="fixed inset-0 bg-neutral-focus/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="bg-base-100 rounded-2xl p-8 max-w-md w-full shadow-2xl border border-base-300">
+                        <h3 className="text-2xl font-bold text-primary mb-6">Update Asset</h3>
                         <form onSubmit={handleEditSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium">Name</label>
-                                <input name="productName" defaultValue={editingAsset.productName} className="w-full border rounded p-2" required />
+                            <div className="form-control">
+                                <label className="label"><span className="label-text font-semibold">Product Name</span></label>
+                                <input name="productName" defaultValue={editingAsset.productName} className="input input-bordered w-full bg-base-200" required />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium">Type</label>
-                                <select name="productType" defaultValue={editingAsset.productType} className="w-full border rounded p-2">
+                            <div className="form-control">
+                                <label className="label"><span className="label-text font-semibold">Product Type</span></label>
+                                <select name="productType" defaultValue={editingAsset.productType} className="select select-bordered w-full bg-base-200">
                                     <option value="Returnable">Returnable</option>
                                     <option value="Non-returnable">Non-returnable</option>
                                 </select>
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium">Quantity</label>
-                                <input name="productQuantity" type="number" defaultValue={editingAsset.productQuantity} className="w-full border rounded p-2" required />
+                            <div className="form-control">
+                                <label className="label"><span className="label-text font-semibold">Quantity</span></label>
+                                <input name="productQuantity" type="number" defaultValue={editingAsset.productQuantity} className="input input-bordered w-full bg-base-200" required />
                             </div>
-                            <div className="flex justify-end gap-3 mt-4">
-                                <button type="button" onClick={() => setEditingAsset(null)} className="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-                                <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded">Update</button>
+                            <div className="flex justify-end gap-3 mt-8">
+                                <button type="button" onClick={() => setEditingAsset(null)} className="btn btn-ghost">Cancel</button>
+                                <button type="submit" className="btn btn-primary px-8">Update Asset</button>
                             </div>
                         </form>
                     </div>

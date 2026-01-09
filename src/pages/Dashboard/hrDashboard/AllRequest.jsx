@@ -41,21 +41,23 @@ const AllRequest = () => {
     if (isLoading) return <Loading></Loading>
 
     return (
-        <div className="p-6">
-            <h2 className="text-3xl font-bold mb-6">All Asset Requests</h2>
+        <div className="p-6 text-base-content min-h-screen">
+            <h2 className="text-3xl font-bold mb-6 text-primary">All Asset Requests</h2>
             <div className="mb-6">
                 <input
                     type="text"
                     placeholder="Search by Employee Name or Email..."
-                    className="input input-bordered w-full max-w-md"
+                    className="input input-bordered w-full max-w-md bg-base-100 focus:outline-primary"
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+            
+            <div className="overflow-x-auto bg-base-100 shadow-xl rounded-lg border border-base-300">
                 <table className="table w-full">
-                    <thead className="bg-gray-100">
+                    {/* Header with theme-aware background */}
+                    <thead className="bg-base-200 text-base-content">
                         <tr>
-                            <th>Employee</th>
+                            <th className="py-4">Employee</th>
                             <th>Asset Name</th>
                             <th>Type</th>
                             <th>Request Date</th>
@@ -64,38 +66,51 @@ const AllRequest = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {requests.map((req) => (
-                            <tr key={req._id}>
-                                <td>
-                                    <div className="font-bold">{req.requesterName}</div>
-                                    <div className="text-sm opacity-50">{req.requesterEmail}</div>
-                                </td>
-                                <td>{req.assetName}</td>
-                                <td>{req.assetType}</td>
-                                <td>{new Date(req.requestDate).toLocaleDateString()}</td>
-                                <td>
-                                    <span className={`badge ${req.requestStatus === 'pending' ? 'badge-warning' :
-                                            req.requestStatus === 'approved' ? 'badge-success' : 'badge-error'
-                                        }`}>
-                                        {req.requestStatus}
-                                    </span>
-                                </td>
-                                <td className="flex gap-2">
-                                    {req.requestStatus === 'pending' && (
-                                        <>
-                                            <button
-                                                onClick={() => handleApprove(req._id)}
-                                                className="btn btn-xs btn-success text-white"
-                                            > Approve </button>
-                                            <button
-                                                onClick={() => handleReject(req._id)}
-                                                className="btn btn-xs btn-error text-white"
-                                            > Reject </button>
-                                        </>
-                                    )}
+                        {requests.length === 0 ? (
+                            <tr>
+                                <td colSpan="6" className="text-center py-10 opacity-60">
+                                    No asset requests found.
                                 </td>
                             </tr>
-                        ))}
+                        ) : (
+                            requests.map((req) => (
+                                <tr key={req._id} className="hover:bg-base-200/50 border-b border-base-200">
+                                    <td>
+                                        <div className="font-bold text-base-content">{req.requesterName}</div>
+                                        <div className="text-xs opacity-60">{req.requesterEmail}</div>
+                                    </td>
+                                    <td className="font-medium">{req.assetName}</td>
+                                    <td>
+                                        <span className="badge badge-ghost badge-sm">{req.assetType}</span>
+                                    </td>
+                                    <td>{new Date(req.requestDate).toLocaleDateString()}</td>
+                                    <td>
+                                        <span className={`badge font-semibold ${
+                                            req.requestStatus === 'pending' ? 'badge-warning' :
+                                            req.requestStatus === 'approved' ? 'badge-success' : 'badge-error'
+                                        } text-white`}>
+                                            {req.requestStatus}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div className="flex gap-2">
+                                            {req.requestStatus === 'pending' && (
+                                                <>
+                                                    <button
+                                                        onClick={() => handleApprove(req._id)}
+                                                        className="btn btn-xs btn-success text-white px-3"
+                                                    > Approve </button>
+                                                    <button
+                                                        onClick={() => handleReject(req._id)}
+                                                        className="btn btn-xs btn-error text-white px-3"
+                                                    > Reject </button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>

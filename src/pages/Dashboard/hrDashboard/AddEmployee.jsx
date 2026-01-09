@@ -7,8 +7,8 @@ import Loading from "../../ExtraPage/Loading";
 
 const AddEmployee = () => {
     useEffect(() => {
-            document.title = "Add Employee - page";
-        }, []);
+        document.title = "Add Employee - page";
+    }, []);
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const {
@@ -48,6 +48,7 @@ const AddEmployee = () => {
                 text: "Your package limit is full. Please upgrade.",
                 showCancelButton: true,
                 confirmButtonText: "Upgrade Now",
+                confirmButtonColor: '#4f46e5',
             }).then((res) => {
                 if (res.isConfirmed) {
                     navigate("/dashboard/upgrade");
@@ -86,102 +87,91 @@ const AddEmployee = () => {
             <Loading></Loading>
         );
     }
-    const isLimitFull =
-        hrStatus.currentEmployees >= hrStatus.packageLimit;
+    const isLimitFull = hrStatus.currentEmployees >= hrStatus.packageLimit;
 
     return (
-        <div className="p-8 max-w-7xl mx-auto min-h-screen bg-gray-50">
-            <div className={`flex flex-col md:flex-row justify-between items-center p-8 rounded-3xl mb-10 shadow border ${isLimitFull ? "bg-red-50 border-red-200"
-                : "bg-white border-gray-100"}`}>
-                <div>
-                    <h2 className="text-3xl font-extrabold">
+        <div className="p-4 md:p-8 max-w-7xl mx-auto min-h-screen text-base-content">
+            {/* Header / Limit Status Card */}
+            <div className={`flex flex-col md:flex-row justify-between items-center p-8 rounded-3xl mb-10 shadow-lg border transition-all duration-300 ${isLimitFull
+                    ? "bg-error/10 border-error/30"
+                    : "bg-base-100 border-base-300"
+                }`}>
+                <div className="text-center md:text-left">
+                    <h2 className="text-3xl font-extrabold text-primary">
                         Add New Employees
                     </h2>
-                    <p
-                        className={`mt-2 font-medium ${isLimitFull
-                            ? "text-red-500"
-                            : "text-gray-500"
-                            }`}>
+                    <p className={`mt-2 font-medium ${isLimitFull ? "text-error" : "opacity-70"}`}>
                         {isLimitFull
                             ? "Team limit full. Upgrade required."
                             : "Add employees to your organization"}
                     </p>
                 </div>
-                <div className="text-center mt-6 md:mt-0">
-                    <p className="text-sm text-gray-400 uppercase">
+
+                <div className="text-center mt-6 md:mt-0 bg-base-200/50 p-6 rounded-2xl border border-base-300 min-w-[200px]">
+                    <p className="text-xs opacity-50 uppercase tracking-widest mb-1 font-bold">
                         Team Capacity
                     </p>
-                    <p
-                        className={`text-4xl font-black ${isLimitFull
-                            ? "text-red-600"
-                            : "text-blue-600"
-                            }`}>
-                        {hrStatus.currentEmployees} /{" "}
-                        {hrStatus.packageLimit}
+                    <p className={`text-4xl font-black ${isLimitFull ? "text-error" : "text-primary"}`}>
+                        {hrStatus.currentEmployees} <span className="text-base font-normal opacity-50">/</span> {hrStatus.packageLimit}
                     </p>
                     <button
-                        onClick={() =>
-                            navigate("/dashboard/upgrade")
-                        }
-                        className={`btn mt-4 rounded-xl ${isLimitFull
-                            ? "btn-error text-white animate-pulse"
-                            : "btn-outline btn-primary"
-                            }`}>Upgrade Package
+                        onClick={() => navigate("/dashboard/upgrade")}
+                        className={`btn btn-sm mt-4 rounded-lg px-6 ${isLimitFull
+                                ? "btn-error text-white animate-pulse"
+                                : "btn-primary btn-outline"
+                            }`}>
+                        Upgrade Package
                     </button>
                 </div>
             </div>
-            
-            <div className="bg-white rounded-3xl shadow border">
+
+            {/* Table Section */}
+            <div className="bg-base-100 rounded-3xl shadow-xl border border-base-300 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th className="text-right">
-                                    Action
-                                </th>
+                        {/* head */}
+                        <thead className="bg-base-200">
+                            <tr className="text-base-content opacity-70">
+                                <th className="py-5 pl-8">Employee Name</th>
+                                <th>Email Address</th>
+                                <th className="text-right pr-8">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {availableEmployees.length > 0 ? (
                                 availableEmployees.map((emp) => (
-                                    <tr key={emp._id}>
-                                        <td className="font-semibold">
-                                            {emp.name}
+                                    <tr key={emp._id} className="hover:bg-base-200/50 border-b border-base-200 transition-colors">
+                                        <td className="pl-8">
+                                            <div className="flex items-center gap-3">
+                                                <div className="avatar placeholder">
+                                                    <div className="bg-neutral text-neutral-content rounded-full w-10">
+                                                        <span>{emp.name?.charAt(0)}</span>
+                                                    </div>
+                                                </div>
+                                                <span className="font-bold">{emp.name}</span>
+                                            </div>
                                         </td>
-                                        <td className="text-gray-500">
+                                        <td className="opacity-70 font-medium">
                                             {emp.email}
                                         </td>
-                                        <td className="text-right">
+                                        <td className="text-right pr-8">
                                             <button
-                                                onClick={() =>
-                                                    handleAddToTeam(
-                                                        emp
-                                                    )
-                                                }
-                                                disabled={
-                                                    isLimitFull
-                                                }
-                                                className={`btn btn-sm rounded-xl ${isLimitFull
-                                                    ? "btn-disabled"
-                                                    : "btn-primary"
+                                                onClick={() => handleAddToTeam(emp)}
+                                                disabled={isLimitFull}
+                                                className={`btn btn-sm rounded-lg px-5 ${isLimitFull
+                                                        ? "btn-disabled opacity-50"
+                                                        : "btn-primary"
                                                     }`}
                                             >
-                                                {isLimitFull
-                                                    ? "Limit Full"
-                                                    : "Add"}
+                                                {isLimitFull ? "Full" : "Add to Team"}
                                             </button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td
-                                        colSpan="3"
-                                        className="text-center py-10 text-gray-400"
-                                    >
-                                        No available employees
+                                    <td colSpan="3" className="text-center py-20 opacity-50 italic">
+                                        No available employees found to add.
                                     </td>
                                 </tr>
                             )}

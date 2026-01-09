@@ -7,6 +7,10 @@ import Testimonial from './Testimonial';
 import HowItWorks from './HowItWorks';
 import Faq from './Faq';
 import Contact from './Contact';
+import Stats from './Stats';
+import NewsLetter from './NewsLetter';
+import Highlights from './Highlights';
+
 
 
 const Home = () => {
@@ -19,8 +23,11 @@ const Home = () => {
             <AboutSection></AboutSection>
             <Package></Package>
             <Features></Features>
+            <Stats></Stats>
+            <Highlights></Highlights>
             <Testimonial></Testimonial>
             <HowItWorks></HowItWorks>
+            <NewsLetter></NewsLetter>
             <Faq></Faq>
             <Contact></Contact>
         </div>
